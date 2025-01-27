@@ -1,6 +1,7 @@
-package models;
+package snake.models;
 
 import java.awt.Image;
+import java.util.Objects;
 
 import javax.swing.ImageIcon;
 
@@ -14,7 +15,7 @@ public class Apple {
 	private final int DOT_SIZE = 10;
 	
 	public Apple() {
-		final ImageIcon iia = new ImageIcon("snake/files/apple.png");
+		final ImageIcon iia = new ImageIcon(Objects.requireNonNull(getClass().getResource("/files/apple.png")));
 
 		this.apple = iia.getImage();
 		this.x = 0;

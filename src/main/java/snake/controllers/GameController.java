@@ -1,10 +1,10 @@
-package controllers;
+package snake.controllers;
 
-import views.Board;
+import snake.views.Board;
 
 public class GameController {
 
-	private final Board board;	// view
+	private final Board board;
 	
 	public GameController(final Board board) {
 		this.board = board;

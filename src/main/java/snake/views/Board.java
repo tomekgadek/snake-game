@@ -1,11 +1,8 @@
-package views;
+package snake.views;
 
 import javax.swing.JFrame;
 
 public class Board extends JFrame {
-
-	private static final long serialVersionUID = 1L;
-	
 	private ViewGame view;
 
 	public Board(final String title, final ViewGame view) {

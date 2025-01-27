@@ -1,4 +1,6 @@
-package views;
+package snake.views;
+
+import snake.models.Apple;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -11,12 +13,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.util.Objects;
 
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 import javax.swing.Timer;
-
-import models.Apple;
 
 public class ViewGame extends JPanel implements ActionListener {
 
@@ -60,10 +61,10 @@ public class ViewGame extends JPanel implements ActionListener {
 
 	private void loadImages() {
 
-		ImageIcon iid = new ImageIcon("snake/files/dot.png");
+		ImageIcon iid = new ImageIcon(Objects.requireNonNull(getClass().getResource("/files/dot.png")));
 		ball = iid.getImage();
 
-		ImageIcon iih = new ImageIcon("snake/files/head.png");
+		ImageIcon iih = new ImageIcon(Objects.requireNonNull(getClass().getResource("/files/head.png")));
 		head = iih.getImage();
 	}
 
