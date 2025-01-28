@@ -7,7 +7,8 @@ czerwonego jabłka lub przekroczenia obszaru gry następuje koniec rozgrywki.
 ## Etapy refaktoryzacji
 
 + Wdrożenie niedziałającego projektu,
-+ Poprawa konfiguracji zasobów statycznych.
++ Poprawa konfiguracji zasobów statycznych,
++ Wydzielenie klasy **Snake**.
 
 ## Autor
 

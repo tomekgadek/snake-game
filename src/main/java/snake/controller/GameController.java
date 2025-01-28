@@ -1,6 +1,6 @@
-package snake.controllers;
+package snake.controller;
 
-import snake.views.Board;
+import snake.view.Board;
 
 public class GameController {
 
