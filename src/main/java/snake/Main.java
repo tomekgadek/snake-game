@@ -1,12 +1,18 @@
 package snake;
 
 import java.awt.EventQueue;
+import java.awt.event.KeyAdapter;
 
 import snake.controller.GameController;
 import snake.model.Apple;
+import snake.model.Keyboard;
 import snake.model.Snake;
 import snake.view.Board;
-import snake.view.ViewGame;
+import snake.view.GameEngine;
+
+// TODO: Dodac ladne tlo
+// TODO: Poprawic grafike
+// Menu: Tytul, Nowa gra, rekordy, wyjscie
 
 public class Main {
 	
@@ -17,8 +23,10 @@ public class Main {
         EventQueue.invokeLater(() -> {
             final Apple apple = new Apple();
             final Snake snake = new Snake();
+            final Keyboard keyboard = new Keyboard();
 
-            final ViewGame view = new ViewGame(apple, snake);
+            final GameEngine view = new GameEngine(apple, snake, keyboard);
+
             final Board board = new Board(title, view);
 
             final GameController controller = new GameController(board);

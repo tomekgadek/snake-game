@@ -1,44 +1,42 @@
 package snake.view;
 
 import snake.model.Apple;
+import snake.model.Keyboard;
 import snake.model.Snake;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
 
-public class ViewGame extends JPanel implements ActionListener {
+public class GameEngine extends JPanel implements ActionListener {
 
 	private final int BOARD_WIDTH = 600;
 	private final int BOARD_HEIGHT = 600;
 	private final static int DELAY = 80;
 	private final static int DOT_SIZE = 10;
 
-	private boolean leftDirection = false;
-	private boolean rightDirection = true;
-	private boolean upDirection = false;
-	private boolean downDirection = false;
 	private boolean inGame = true;
 	private Timer timer;
 	
 	private final Apple apple;
 	private final Snake snake;
 
+	private final Keyboard keyboard;
+
 	private final int[] x;
 	private final int[] y;
 
-	public ViewGame(final Apple apple, final Snake snake) {
+	public GameEngine(final Apple apple, final Snake snake, final Keyboard keyboard) {
 
 		this.apple = apple;
 		this.snake = snake;
+		this.keyboard = keyboard;
 
 		x = snake.getTabX();
 		y = snake.getTabY();
 		
-		addKeyListener(new TAdapter());
+		addKeyListener(keyboard);
 		setBackground(Color.black);
 		setFocusable(true);
 
@@ -108,25 +106,26 @@ public class ViewGame extends JPanel implements ActionListener {
 			y[z] = y[(z - 1)];
 		}
 
-		if (leftDirection) {
+		if (keyboard.isLeftDirection()) {
 			x[0] -= DOT_SIZE;
 		}
 
-		if (rightDirection) {
+		if (keyboard.isRightDirection()) {
 			x[0] += DOT_SIZE;
 		}
 
-		if (upDirection) {
+		if (keyboard.isUpDirection()) {
 			y[0] -= DOT_SIZE;
 		}
 
-		if (downDirection) {
+		if (keyboard.isDownDirection()) {
 			y[0] += DOT_SIZE;
 		}
 	}
 
 	private void checkCollision() {
 
+		// czy kolizja z cialem
 		for (int z = snake.size(); z > 0; z--) {
 
 			if ((z > 4) && (x[0] == x[z]) && (y[0] == y[z])) {
@@ -135,6 +134,7 @@ public class ViewGame extends JPanel implements ActionListener {
 			}
 		}
 
+		// czy kolizja ze sciana
 		if (y[0] >= BOARD_HEIGHT) {
 			inGame = false;
 		}
@@ -151,6 +151,7 @@ public class ViewGame extends JPanel implements ActionListener {
 			inGame = false;
 		}
 
+		// czy koniec
 		if (!inGame) {
 			timer.stop();
 		}
@@ -166,40 +167,7 @@ public class ViewGame extends JPanel implements ActionListener {
 
 		repaint();
 	}
-
-	private class TAdapter extends KeyAdapter {
-
-		public void keyPressed(KeyEvent e) {
-
-			int key = e.getKeyCode();
-
-			if ((key == KeyEvent.VK_LEFT) && (!rightDirection)) {
-				leftDirection = true;
-				upDirection = false;
-				downDirection = false;
-			}
-
-			if ((key == KeyEvent.VK_RIGHT) && (!leftDirection)) {
-				rightDirection = true;
-				upDirection = false;
-				downDirection = false;
-			}
-
-			if ((key == KeyEvent.VK_UP) && (!downDirection)) {
-				upDirection = true;
-				rightDirection = false;
-				leftDirection = false;
-			}
-
-			if ((key == KeyEvent.VK_DOWN) && (!upDirection)) {
-				downDirection = true;
-				rightDirection = false;
-				leftDirection = false;
-			}
-		}
-	}
 }
-
 
 /*
 	Zastanowic sie nad implemetacja FPS
