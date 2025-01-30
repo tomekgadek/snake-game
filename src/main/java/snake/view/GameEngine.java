@@ -3,6 +3,7 @@ package snake.view;
 import snake.model.Apple;
 import snake.model.Keyboard;
 import snake.model.Snake;
+import snake.model.SnakePoint;
 
 import javax.swing.*;
 import java.awt.*;
@@ -14,7 +15,6 @@ public class GameEngine extends JPanel implements ActionListener {
 	private final int BOARD_WIDTH = 600;
 	private final int BOARD_HEIGHT = 600;
 	private final static int DELAY = 80;
-	private final static int DOT_SIZE = 10;
 
 	private boolean inGame = true;
 	private Timer timer;
@@ -24,17 +24,11 @@ public class GameEngine extends JPanel implements ActionListener {
 
 	private final Keyboard keyboard;
 
-	private final int[] x;
-	private final int[] y;
-
 	public GameEngine(final Apple apple, final Snake snake, final Keyboard keyboard) {
 
 		this.apple = apple;
 		this.snake = snake;
 		this.keyboard = keyboard;
-
-		x = snake.getTabX();
-		y = snake.getTabY();
 		
 		addKeyListener(keyboard);
 		setBackground(Color.black);
@@ -55,31 +49,30 @@ public class GameEngine extends JPanel implements ActionListener {
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 
-		doDrawing(g);
+		renderGame(g);
 	}
 
-	private void doDrawing(Graphics g) {
+	private void renderGame(Graphics g) {
 
 		if (inGame) {
 
 			g.drawImage(apple.appleImg(), apple.x(), apple.y(), this);
 
-			for (int z = 0; z < snake.size(); z++) {
-				if (z == 0) {
-					g.drawImage(snake.headImg(), x[z], y[z], this);
-				} else {
-					g.drawImage(snake.bodyImg(), x[z], y[z], this);
-				}
+			g.drawImage(snake.headImg(), snake.head().x(), snake.head().y(), this);
+
+			for(SnakePoint body: snake.body()) {
+
+				g.drawImage(snake.bodyImg(), body.x(), body.y(), this);
 			}
 
 			Toolkit.getDefaultToolkit().sync();
 
 		} else {
-			gameOver(g);
+			endGame(g);
 		}
 	}
 
-	private void gameOver(Graphics g) {
+	private void endGame(Graphics g) {
 
 		String msg = "Game Over";
 		Font small = new Font("Helvetica", Font.BOLD, 14);
@@ -92,62 +85,37 @@ public class GameEngine extends JPanel implements ActionListener {
 
 	private void checkApple() {
 
-		if ((x[0] == apple.x()) && (y[0] == apple.y())) {
+		if ((snake.head().x() == apple.x()) && (snake.head().y() == apple.y())) {
 
 			snake.expand();
 			apple.randomLocation();
 		}
 	}
 
-	private void move() {
-
-		for (int z = snake.size(); z > 0; z--) {
-			x[z] = x[(z - 1)];
-			y[z] = y[(z - 1)];
-		}
-
-		if (keyboard.isLeftDirection()) {
-			x[0] -= DOT_SIZE;
-		}
-
-		if (keyboard.isRightDirection()) {
-			x[0] += DOT_SIZE;
-		}
-
-		if (keyboard.isUpDirection()) {
-			y[0] -= DOT_SIZE;
-		}
-
-		if (keyboard.isDownDirection()) {
-			y[0] += DOT_SIZE;
-		}
-	}
-
 	private void checkCollision() {
 
 		// czy kolizja z cialem
-		for (int z = snake.size(); z > 0; z--) {
-
-			if ((z > 4) && (x[0] == x[z]) && (y[0] == y[z])) {
+		for(SnakePoint body: snake.body()) {
+			if(snake.size() > 4 && snake.head().x() == body.x() && snake.head().y() == body.y()) {
 				inGame = false;
 				break;
 			}
 		}
 
 		// czy kolizja ze sciana
-		if (y[0] >= BOARD_HEIGHT) {
+		if (snake.head().y() >= BOARD_HEIGHT) {
 			inGame = false;
 		}
 
-		if (y[0] < 0) {
+		if (snake.head().y() < 0) {
 			inGame = false;
 		}
 
-		if (x[0] >= BOARD_WIDTH) {
+		if (snake.head().x() >= BOARD_WIDTH) {
 			inGame = false;
 		}
 
-		if (x[0] < 0) {
+		if (snake.head().x() < 0) {
 			inGame = false;
 		}
 
@@ -162,102 +130,24 @@ public class GameEngine extends JPanel implements ActionListener {
 		if (inGame) {
 			checkApple();
 			checkCollision();
-			move();
+
+			if(keyboard.isLeftDirection()) {
+				snake.move(Snake.Direction.LEFT);
+			}
+
+			if(keyboard.isRightDirection()) {
+				snake.move(Snake.Direction.RIGHT);
+			}
+
+			if(keyboard.isDownDirection()) {
+				snake.move(Snake.Direction.DOWN);
+			}
+
+			if(keyboard.isUpDirection()) {
+				snake.move(Snake.Direction.UP);
+			}
 		}
 
 		repaint();
 	}
 }
-
-/*
-	Zastanowic sie nad implemetacja FPS
-
-	import javax.swing.*;
-import java.awt.*;
-
-public class Game extends JPanel implements Runnable {
-
-    private final int FPS = 60; // Docelowe FPS
-    private final int DELAY = 1000 / FPS; // Opóźnienie w milisekundach (16,67 ms)
-    private Thread gameThread; // Wątek gry
-    private boolean running = true; // Flaga dla pętli gry
-
-    public Game() {
-        setPreferredSize(new Dimension(800, 600)); // Rozmiar okna
-    }
-
-    @Override
-    public void run() {
-        long lastTime = System.nanoTime(); // Czas rozpoczęcia
-        long timer = System.currentTimeMillis();
-        int frames = 0;
-
-        while (running) {
-            long now = System.nanoTime();
-            long elapsed = now - lastTime; // Czas między klatkami
-            lastTime = now;
-
-            update(); // Aktualizacja logiki gry
-            repaint(); // Rysowanie grafiki
-
-            // Oblicz pozostały czas i wstrzymaj wątek
-            long sleepTime = DELAY - (System.nanoTime() - now) / 1_000_000;
-            if (sleepTime > 0) {
-                try {
-                    Thread.sleep(sleepTime);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
-
-            frames++;
-
-            // Wyświetl FPS co sekundę
-            if (System.currentTimeMillis() - timer > 1000) {
-                System.out.println("FPS: " + frames);
-                frames = 0;
-                timer += 1000;
-            }
-        }
-    }
-
-    private void update() {
-        // Logika gry, np. ruch węża
-    }
-
-    @Override
-    protected void paintComponent(Graphics g) {
-        super.paintComponent(g);
-        // Rysowanie gry
-        g.drawString("Hello, Snake!", 50, 50);
-    }
-
-    public synchronized void startGame() {
-        gameThread = new Thread(this);
-        gameThread.start();
-    }
-
-    public synchronized void stopGame() {
-        running = false;
-        try {
-            gameThread.join();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public static void main(String[] args) {
-        JFrame frame = new JFrame("Snake Game");
-        Game game = new Game();
-
-        frame.add(game);
-        frame.pack();
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setVisible(true);
-
-        game.startGame();
-    }
-}
-
-
- */

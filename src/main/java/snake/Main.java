@@ -35,3 +35,96 @@ public class Main {
         });
     }
 }
+
+/*
+	Zastanowic sie nad implemetacja FPS
+
+	import javax.swing.*;
+import java.awt.*;
+
+public class Game extends JPanel implements Runnable {
+
+    private final int FPS = 60; // Docelowe FPS
+    private final int DELAY = 1000 / FPS; // Opóźnienie w milisekundach (16,67 ms)
+    private Thread gameThread; // Wątek gry
+    private boolean running = true; // Flaga dla pętli gry
+
+    public Game() {
+        setPreferredSize(new Dimension(800, 600)); // Rozmiar okna
+    }
+
+    @Override
+    public void run() {
+        long lastTime = System.nanoTime(); // Czas rozpoczęcia
+        long timer = System.currentTimeMillis();
+        int frames = 0;
+
+        while (running) {
+            long now = System.nanoTime();
+            long elapsed = now - lastTime; // Czas między klatkami
+            lastTime = now;
+
+            update(); // Aktualizacja logiki gry
+            repaint(); // Rysowanie grafiki
+
+            // Oblicz pozostały czas i wstrzymaj wątek
+            long sleepTime = DELAY - (System.nanoTime() - now) / 1_000_000;
+            if (sleepTime > 0) {
+                try {
+                    Thread.sleep(sleepTime);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            frames++;
+
+            // Wyświetl FPS co sekundę
+            if (System.currentTimeMillis() - timer > 1000) {
+                System.out.println("FPS: " + frames);
+                frames = 0;
+                timer += 1000;
+            }
+        }
+    }
+
+    private void update() {
+        // Logika gry, np. ruch węża
+    }
+
+    @Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        // Rysowanie gry
+        g.drawString("Hello, Snake!", 50, 50);
+    }
+
+    public synchronized void startGame() {
+        gameThread = new Thread(this);
+        gameThread.start();
+    }
+
+    public synchronized void stopGame() {
+        running = false;
+        try {
+            gameThread.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void main(String[] args) {
+        JFrame frame = new JFrame("Snake Game");
+        Game game = new Game();
+
+        frame.add(game);
+        frame.pack();
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setVisible(true);
+
+        game.startGame();
+    }
+}
+
+
+ */
