@@ -6,20 +6,14 @@ import java.util.*;
 import java.util.List;
 
 public class Snake {
-    private final int ALL_DOTS = 900;
-    private final int x[] = new int[ALL_DOTS];
-    private final int y[] = new int[ALL_DOTS];
     private final Image bodyImg;
     private final Image headImg;
-    private int dots;
-
     private final List<SnakePoint> snakeBody = new ArrayList<>();
-
-    private SnakePoint snakeHead = SnakePoint.init(50, 50);
+    private SnakePoint snakeHead = null;
 
     private final static int DOT_SIZE = 10;
 
-    public enum Direction { LEFT, RIGHT, UP, DOWN }
+
 
     public Snake() {
         ImageIcon iid = new ImageIcon(Objects.requireNonNull(getClass().getResource("/files/dot.png")));
@@ -28,18 +22,18 @@ public class Snake {
         ImageIcon iih = new ImageIcon(Objects.requireNonNull(getClass().getResource("/files/head.png")));
         headImg = iih.getImage();
 
-        this.initLocation();
+        this.initSnake();
     }
 
-    private void initLocation() {
-        //this.dots = 3;
+    private void initSnake() {
+        snakeHead = SnakePoint.createSnakeElement(50, 50);
 
-        snakeBody.add(SnakePoint.init(40, 50));
-        snakeBody.add(SnakePoint.init(30, 50));
+        snakeBody.add(SnakePoint.createSnakeElement(40, 50));
+        snakeBody.add(SnakePoint.createSnakeElement(30, 50));
     }
 
     public void expand() {
-        snakeBody.add(SnakePoint.init(snakeBody.get(snakeBody.size()-1).x(), snakeBody.get(snakeBody.size()-1).y()));
+        snakeBody.add(SnakePoint.createSnakeElement(snakeBody.get(snakeBody.size()-1).x(), snakeBody.get(snakeBody.size()-1).y()));
     }
 
     public int bodySize() {
@@ -59,37 +53,23 @@ public class Snake {
     }
 
     public void move(final Direction direction) {
-
-        /*for (int z = size(); z > 0; z--) {
-            x[z] = x[(z - 1)];
-            y[z] = y[(z - 1)];
-        }*/
         Collections.rotate(snakeBody, 1);
-        snakeBody.set(0, SnakePoint.init(snakeHead.x(), snakeHead.y()));
+        snakeBody.set(0, SnakePoint.createSnakeElement(snakeHead.x(), snakeHead.y()));
 
-        if (direction == Direction.LEFT) {
-            //x[0] -= DOT_SIZE;
-            updateHeadPosition(head().x() - DOT_SIZE, head().y());
-        } else if (direction == Direction.RIGHT) {
-            updateHeadPosition(head().x() + DOT_SIZE, head().y());
-            //x[0] += DOT_SIZE;
-        } else if (direction == Direction.UP) {
-            updateHeadPosition(head().x(), head().y() - DOT_SIZE);
-            //y[0] -= DOT_SIZE;
-        } else if (direction == Direction.DOWN) {
-            updateHeadPosition(head().x(), head().y() + DOT_SIZE);
-            //y[0] += DOT_SIZE;
+        switch (direction) {
+            case LEFT -> updateHeadPosition(head().x() - DOT_SIZE, head().y());
+            case RIGHT -> updateHeadPosition(head().x() + DOT_SIZE, head().y());
+            case UP -> updateHeadPosition(head().x(), head().y() - DOT_SIZE);
+            case DOWN -> updateHeadPosition(head().x(), head().y() + DOT_SIZE);
         }
     }
 
     public SnakePoint head() {
-
         return snakeHead;
     }
 
     public void updateHeadPosition(int x, int y) {
-
-        snakeHead = SnakePoint.init(x, y);
+        snakeHead = SnakePoint.createSnakeElement(x, y);
     }
 
     public List<SnakePoint> body() {

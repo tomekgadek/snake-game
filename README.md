@@ -10,7 +10,8 @@ czerwonego jabłka lub przekroczenia obszaru gry następuje koniec rozgrywki.
 + Poprawa konfiguracji zasobów statycznych,
 + Wydzielenie klasy **Snake**,
 + Wydzielenie obslugi klawiatury do odzielnej klasy,
-+ Wydzielenie odpowiedzialności do klasy **Snake**.
++ Wydzielenie odpowiedzialności do klasy **Snake**,
++ Poprawa mechaniki gry.
 
 ## Autor
 

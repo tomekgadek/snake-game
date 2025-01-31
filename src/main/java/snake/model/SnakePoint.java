@@ -5,7 +5,7 @@ public class SnakePoint {
     private final int x;
     private final int y;
 
-    public static SnakePoint init(int x, int y) {
+    public static SnakePoint createSnakeElement(int x, int y) {
 
         return new SnakePoint(x, y);
     }

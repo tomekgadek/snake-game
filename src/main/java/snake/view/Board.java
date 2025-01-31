@@ -8,7 +8,7 @@ public class Board extends JFrame {
 
 		add(view);
 		setTitle(title);
-		setLocation(50, 50);
+		setLocation(200, 50);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setResizable(false);
 
