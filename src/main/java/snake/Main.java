@@ -9,9 +9,7 @@ import snake.model.Snake;
 import snake.view.Board;
 import snake.view.GameEngine;
 
-// TODO: Dodac ladne tlo
-// TODO: Poprawic grafike
-// Menu: Tytul, Nowa gra, rekordy, wyjscie
+// Menu: Tytul, Nowa gra, rekordy, wyjscie ???
 
 public class Main {
 	

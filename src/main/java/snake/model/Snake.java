@@ -11,9 +11,7 @@ public class Snake {
     private final List<SnakePoint> snakeBody = new ArrayList<>();
     private SnakePoint snakeHead = null;
 
-    private final static int DOT_SIZE = 10;
-
-
+    private final static int DOT_SIZE = 20;
 
     public Snake() {
         ImageIcon iid = new ImageIcon(Objects.requireNonNull(getClass().getResource("/files/dot.png")));
@@ -26,10 +24,10 @@ public class Snake {
     }
 
     private void initSnake() {
-        snakeHead = SnakePoint.createSnakeElement(50, 50);
+        snakeHead = SnakePoint.createSnakeElement(40, 40);
 
-        snakeBody.add(SnakePoint.createSnakeElement(40, 50));
-        snakeBody.add(SnakePoint.createSnakeElement(30, 50));
+        snakeBody.add(SnakePoint.createSnakeElement(20, 40));
+        snakeBody.add(SnakePoint.createSnakeElement(0, 40));
     }
 
     public void expand() {

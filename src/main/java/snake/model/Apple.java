@@ -10,8 +10,9 @@ public class Apple {
 	private int x;
 	private int y;
 	private final Image apple;
-	private final static int RAND_POS = 60;
-	private final static int DOT_SIZE = 10;
+	private final static int RAND_HORIZONTAL_POS = 40;
+	private final static int RAND_VERTICAL_POS = 30;
+	private final static int DOT_SIZE = 20;
 
 	private final Random randomPosition;
 	
@@ -25,10 +26,10 @@ public class Apple {
 	}
 	
 	public void randomLocation() {
-		int randomHorizontalLocation = randomPosition.nextInt(RAND_POS);
+		int randomHorizontalLocation = randomPosition.nextInt(RAND_HORIZONTAL_POS);
 		this.x = randomHorizontalLocation * DOT_SIZE;
 
-		int randomVerticalLocation = randomPosition.nextInt(RAND_POS);
+		int randomVerticalLocation = randomPosition.nextInt(RAND_VERTICAL_POS);
 		this.y = randomVerticalLocation * DOT_SIZE;
 	}
 

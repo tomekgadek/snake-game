@@ -6,16 +6,18 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Objects;
 
 public class GameEngine extends JPanel implements ActionListener {
 
-	private final int BOARD_WIDTH = 600;
+	private final int BOARD_WIDTH = 800;
 	private final int BOARD_HEIGHT = 600;
 	private final static int DELAY = 120;
 	private Timer timer;
 	private final Apple apple;
 	private final Snake snake;
 	private final Keyboard keyboard;
+	private final Image backgroundImage;
 
 	public GameEngine(final Apple apple, final Snake snake, final Keyboard keyboard) {
 
@@ -28,6 +30,10 @@ public class GameEngine extends JPanel implements ActionListener {
 		setFocusable(true);
 
 		setPreferredSize(new Dimension(BOARD_WIDTH, BOARD_HEIGHT));
+
+		final ImageIcon backgroundImg = new ImageIcon(Objects.requireNonNull(getClass().getResource("/files/background.jpg")));
+		backgroundImage = backgroundImg.getImage();
+
 		initGame();
 	}
 
@@ -57,6 +63,8 @@ public class GameEngine extends JPanel implements ActionListener {
 
 	private void loopGame(Graphics g) {
 
+		g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), this);
+
 		g.drawImage(apple.appleImg(), apple.x(), apple.y(), this);
 		g.drawImage(snake.headImg(), snake.head().x(), snake.head().y(), this);
 
@@ -77,6 +85,7 @@ public class GameEngine extends JPanel implements ActionListener {
 		g.setColor(Color.white);
 		g.setFont(small);
 		g.drawString(msg, (BOARD_WIDTH - metr.stringWidth(msg)) / 2, BOARD_HEIGHT / 2);
+		g.drawString(String.format("Score: %d pt.", snake.size()), (BOARD_WIDTH - metr.stringWidth(msg)) / 2, BOARD_HEIGHT / 2 + 14);
 	}
 
 	private boolean isAppleEaten() {
