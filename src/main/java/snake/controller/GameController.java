@@ -1,13 +1,24 @@
 package snake.controller;
 
-import snake.view.Board;
+import snake.model.Keyboard;
+import snake.view.GameWindow;
+
+import javax.swing.*;
+
 
 public class GameController {
 
-	private final Board board;
+	private final GameWindow gameWindow;
+
+	private final static int DELAY = 120;
+
+	private final Timer gameTimer;
 	
-	public GameController(final Board board) {
-		this.board = board;
+	public GameController(final GameWindow gameWindow) {
+		this.gameWindow = gameWindow;
+
+		this.gameTimer = new Timer(DELAY, this.gameWindow.gamePanel());
+		this.gameTimer.start();
 	}
 	
 	public void control() {
@@ -15,6 +26,6 @@ public class GameController {
 	}
 	
 	private void showBoard() {
-		board.setVisible(true);
+		gameWindow.setVisible(true);
 	}
 }

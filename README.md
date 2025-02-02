@@ -12,7 +12,8 @@ czerwonego jabłka lub przekroczenia obszaru gry następuje koniec rozgrywki.
 + Wydzielenie obslugi klawiatury do odzielnej klasy,
 + Wydzielenie odpowiedzialności do klasy **Snake**,
 + Poprawa mechaniki gry,
-+ Mofyfikacja elementów graficznych.
++ Mofyfikacja elementów graficznych,
++ Wydzielenie timera do kontrolera.
 
 ## Autor
 

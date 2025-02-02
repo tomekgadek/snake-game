@@ -6,8 +6,8 @@ import snake.controller.GameController;
 import snake.model.Apple;
 import snake.model.Keyboard;
 import snake.model.Snake;
-import snake.view.Board;
-import snake.view.GameEngine;
+import snake.view.GameWindow;
+import snake.view.GamePanel;
 
 // Menu: Tytul, Nowa gra, rekordy, wyjscie ???
 
@@ -22,11 +22,10 @@ public class Main {
             final Snake snake = new Snake();
             final Keyboard keyboard = new Keyboard();
 
-            final GameEngine view = new GameEngine(apple, snake, keyboard);
+            final GamePanel gamePanel = new GamePanel(apple, snake, keyboard);
+            final GameWindow gameWindow = new GameWindow(title, gamePanel);
 
-            final Board board = new Board(title, view);
-
-            final GameController controller = new GameController(board);
+            final GameController controller = new GameController(gameWindow);
 
             controller.control();
         });

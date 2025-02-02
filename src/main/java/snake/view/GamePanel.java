@@ -8,18 +8,18 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Objects;
 
-public class GameEngine extends JPanel implements ActionListener {
+public class GamePanel extends JPanel implements ActionListener {
 
 	private final int BOARD_WIDTH = 800;
 	private final int BOARD_HEIGHT = 600;
-	private final static int DELAY = 120;
-	private Timer timer;
+
+	//private Timer timer;
 	private final Apple apple;
 	private final Snake snake;
 	private final Keyboard keyboard;
 	private final Image backgroundImage;
 
-	public GameEngine(final Apple apple, final Snake snake, final Keyboard keyboard) {
+	public GamePanel(final Apple apple, final Snake snake, final Keyboard keyboard) {
 
 		this.apple = apple;
 		this.snake = snake;
@@ -41,8 +41,8 @@ public class GameEngine extends JPanel implements ActionListener {
 
 		apple.randomLocation();
 
-		timer = new Timer(DELAY, this);
-		timer.start();
+		//timer = new Timer(DELAY, this);
+		//timer.start();
 	}
 
 	public void paintComponent(Graphics g) {
@@ -76,7 +76,7 @@ public class GameEngine extends JPanel implements ActionListener {
 	}
 
 	private void endGame(Graphics g) {
-		timer.stop();
+		//timer.stop();
 
 		String msg = "Game Over";
 		Font small = new Font("Helvetica", Font.BOLD, 14);
@@ -116,7 +116,6 @@ public class GameEngine extends JPanel implements ActionListener {
 	}
 
 	public void actionPerformed(ActionEvent e) {
-
 
 		if (isCollision()) {
 			return ;
