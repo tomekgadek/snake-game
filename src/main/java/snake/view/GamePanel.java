@@ -10,10 +10,10 @@ import java.util.Objects;
 
 public class GamePanel extends JPanel implements ActionListener {
 
+	private final static int DELAY = 120;
 	private final int BOARD_WIDTH = 800;
 	private final int BOARD_HEIGHT = 600;
-
-	//private Timer timer;
+	private Timer timer;
 	private final Apple apple;
 	private final Snake snake;
 	private final Keyboard keyboard;
@@ -41,8 +41,8 @@ public class GamePanel extends JPanel implements ActionListener {
 
 		apple.randomLocation();
 
-		//timer = new Timer(DELAY, this);
-		//timer.start();
+		timer = new Timer(DELAY, this);
+		timer.start();
 	}
 
 	public void paintComponent(Graphics g) {
@@ -76,7 +76,7 @@ public class GamePanel extends JPanel implements ActionListener {
 	}
 
 	private void endGame(Graphics g) {
-		//timer.stop();
+		timer.stop();
 
 		String msg = "Game Over";
 		Font small = new Font("Helvetica", Font.BOLD, 14);

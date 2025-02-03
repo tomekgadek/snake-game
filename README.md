@@ -1,8 +1,18 @@
 # Snake
 
 Słynna gra zręcznościowa, która polega na zjadaniu owoców przez węża. Z każdym zjedzonym
-zielonym jabłkiem zwiększa się jego długość. W przypadku zjedzenia
-czerwonego jabłka lub przekroczenia obszaru gry następuje koniec rozgrywki.
+zielonym jabłkiem zwiększa się jego długość. W przypadku przekroczenia 
+obszaru gry następuje koniec rozgrywki.
+
+## Intro z gry
+
+![snake](./src/main/resources/files/snake.png)
+
+## Kod źródłowy
+
+Kod bazowy został pobrany ze strony <https://zetcode.com/javagames/snake/>, który 
+został poddany refaktoryzacji.
+
 
 ## Etapy refaktoryzacji
 
@@ -13,7 +23,8 @@ czerwonego jabłka lub przekroczenia obszaru gry następuje koniec rozgrywki.
 + Wydzielenie odpowiedzialności do klasy **Snake**,
 + Poprawa mechaniki gry,
 + Mofyfikacja elementów graficznych,
-+ Wydzielenie timera do kontrolera.
++ Wydzielenie timera do kontrolera,
++ Aktualizacja dokumentacji.
 
 ## Autor
 
