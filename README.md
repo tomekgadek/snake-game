@@ -1,7 +1,7 @@
 # Snake
 
 Słynna gra zręcznościowa, która polega na zjadaniu owoców przez węża. Z każdym zjedzonym
-zielonym jabłkiem zwiększa się jego długość. W przypadku przekroczenia 
+czerwonym jabłkiem zwiększa się jego długość. W przypadku przekroczenia 
 obszaru gry następuje koniec rozgrywki.
 
 ## Intro z gry
@@ -23,7 +23,6 @@ został poddany refaktoryzacji.
 + Wydzielenie odpowiedzialności do klasy **Snake**,
 + Poprawa mechaniki gry,
 + Mofyfikacja elementów graficznych,
-+ Wydzielenie timera do kontrolera,
 + Aktualizacja dokumentacji.
 
 ## Autor
