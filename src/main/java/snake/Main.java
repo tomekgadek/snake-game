@@ -9,8 +9,6 @@ import snake.model.Snake;
 import snake.view.GameWindow;
 import snake.view.GamePanel;
 
-// Menu: Tytul, Nowa gra, rekordy, wyjscie ???
-
 public class Main {
 	
 	private static final String title = "Snake";

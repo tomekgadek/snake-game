@@ -10,7 +10,6 @@ public class Snake {
     private final Image headImg;
     private final List<SnakePoint> snakeBody = new ArrayList<>();
     private SnakePoint snakeHead = null;
-
     private final static int DOT_SIZE = 20;
 
     public Snake() {

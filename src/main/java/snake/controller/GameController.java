@@ -2,9 +2,6 @@ package snake.controller;
 
 import snake.view.GameWindow;
 
-import javax.swing.*;
-
-
 public class GameController {
 
 	private final GameWindow gameWindow;
