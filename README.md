@@ -22,7 +22,7 @@ zrefaktoryzowany.
 + Wydzielenie obslugi klawiatury do odzielnej klasy,
 + Wydzielenie odpowiedzialności do klasy **Snake**,
 + Poprawa mechaniki gry,
-+ Mofyfikacja elementów graficznych,
++ Modyfikacja elementów graficznych,
 + Aktualizacja dokumentacji.
 
 ## Autor
