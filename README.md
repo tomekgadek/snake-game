@@ -10,8 +10,8 @@ obszaru gry następuje koniec rozgrywki.
 
 ## Kod źródłowy
 
-Kod bazowy został pobrany ze strony <https://zetcode.com/javagames/snake/>, który 
-został poddany refaktoryzacji.
+Kod bazowy został pobrany ze strony <https://zetcode.com/javagames/snake/>, a następnie
+zrefaktoryzowany.
 
 
 ## Etapy refaktoryzacji
